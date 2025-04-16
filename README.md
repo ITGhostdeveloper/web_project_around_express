@@ -26,14 +26,14 @@ Este proyecto es una aplicación web construida con Express.js.La aplicación pr
 
 ## Cómo ejecutar el proyecto
 1. Clonar el repositorio
-   git clone https://github.com/tu_usuario/tu_repositorio.git
-   cd tu_repositorio
-2. Instala las dependencias:
-   npm install
+   **git clone** https://github.com/ITGhostdeveloper/web_project_around_express.git
+   **cd** web_project_around_express.
+2. Instalar las dependencias:
+   **npm install**
 3. Iniciar el servidor:
-   npm run start
-4. Iniciar el servidor con Hot Reload
-   npm run dev 
+   **npm run start**
+4. Iniciar el servidor con Hot Reload:
+   **npm run dev** 
 
 ## Estructura del proyecto
 WEB_PROJECT_AROUND_EXPRESS/
