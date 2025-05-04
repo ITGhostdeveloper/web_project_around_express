@@ -1,52 +1,27 @@
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
+const {
+  getUsers,
+  getUserById,
+  newUser,
+  updateUser,
+  updateAvatar,
+} = require("../controllers/users");
 
 const router = express.Router();
 
-// Ruta absoluta correcta al archivo users.json
-const usersFilePath = path.join(__dirname, "../data/users.json");
+// Ruta para obtener la información de los usuarios
+router.get("/", getUsers);
 
-// Ruta para obtener la información de todos los usuarios
-router.get("/users", (req, res) => {
-  fs.readFile(usersFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer users.json:", err);
-      res.status(500).send({ error: "Error al leer el archivo users.json" });
-      return;
-    }
-    res.json(JSON.parse(data));
-  });
-});
+// Ruta para obtener la información de los usuarios por Id
+router.get("/:_id", getUserById);
 
-// Ruta para obtener la información de un usuario específico por ID
-router.get("/users/:id", (req, res) => {
-  const userId = req.params.id;
+// Ruta para crear un nuevo usuario
+router.post("/", newUser);
 
-  fs.readFile(usersFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer users.json:", err);
-      res.status(500).send({ error: "Error al leer el archivo users.json" });
-      return;
-    }
+// Ruta para actualizar la información de un usuario
+router.patch("/:_id", updateUser);
 
-    try {
-      const users = JSON.parse(data);
-      const user = users.find((u) => u._id == userId); // usar == por si hay diferencia entre número y string
-
-      if (!user) {
-        res.status(404).send({ error: "Usuario no encontrado" });
-        return;
-      }
-
-      res.json(user);
-    } catch (parseError) {
-      console.error("Error al parsear users.json:", parseError);
-      res
-        .status(500)
-        .send({ error: "Error al procesar el archivo users.json" });
-    }
-  });
-});
+// Ruta para actualizar el avatar
+router.patch("/me/avatar", updateAvatar);
 
 module.exports = router;
